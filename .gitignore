@@ -1,0 +1,16 @@
+# Environments
+venv/
+env/
+.env
+
+# Python junk
+__pycache__/
+*.pyc
+
+# Database and Media
+db.sqlite3
+media/
+static/
+
+# OS specific
+.DS_Store
