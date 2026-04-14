@@ -49,4 +49,5 @@ git clone <your-github-repo-url>
 cd <repository-folder>
 
     Group Plans for future assignments:
+    submit assigment in time
     
