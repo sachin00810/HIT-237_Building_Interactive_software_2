@@ -1,31 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EchoNT | Biodiversity Monitoring</title>
+    <title>Echo NT - Fauna Tracker</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            padding-top: 70px;
-        }
-
-        /* Space for fixed navbar */
-    </style>
 </head>
-
 <body class="bg-light">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success mb-4">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="/">🌿 EchoNT</a>
-            <button class="navbar-button" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <a class="navbar-brand" href="/">Echo NT</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="/">Timeline</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/upload/">Upload Audio</a></li>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/observations/">Observations</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -33,15 +29,9 @@
 
     <main class="container">
         {% block content %}
-
         {% endblock %}
     </main>
 
-    <footer class="text-center py-4 text-muted">
-        <small>&copy; 2026 EchoNT - Group 2</small>
-    </footer>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>
