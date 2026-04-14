@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-6">
+        <div class="card border-danger shadow">
+            <div class="card-header bg-danger text-white text-center">
+                <h4 class="mb-0">Confirm Deletion</h4>
+            </div>
+            <div class="card-body text-center py-5">
+                <h5 class="card-title">Are you sure you want to delete this observation?</h5>
+                <p class="card-text text-muted mt-3">You are about to delete the observation of <strong>{{ object.species.name }}</strong> recorded on {{ object.date_spotted|date:"M d, Y" }}.</p>
+                <p class="text-danger fw-bold"><small>This action cannot be undone.</small></p>
+                
+                <form method="post" class="mt-4">
+                    {% csrf_token %}
+                    <a href="{% url 'observation-detail' object.pk %}" class="btn btn-secondary me-2">Cancel</a>
+                    <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
