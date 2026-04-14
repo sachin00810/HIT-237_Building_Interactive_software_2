@@ -47,3 +47,6 @@ To run this Django application locally, follow these steps:
 ```bash
 git clone <your-github-repo-url>
 cd <repository-folder>
+
+    Group Plans for future assignments:
+    
