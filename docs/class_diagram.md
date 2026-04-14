@@ -37,3 +37,5 @@ classDiagram
     User "1" -- "*" Observation : logs
     Species "1" -- "*" Observation : subject of
     Species "*" -- "*" Habitat : lives in
+
+    
