@@ -1,49 +1,52 @@
 # EchoNT Object-Oriented Class Diagram
 
-This diagram outlines the Object-Oriented structure of our Django models, demonstrating encapsulation, class attributes, and business logic methods.
+This diagram reflects the actual implementation of the EchoNT Biodiversity Monitoring system. It highlights the use of **Inheritance** (CustomUser), **Aggregation** (Observation), and **Encapsulation** (Model Methods).
 
 ```mermaid
 classDiagram
-    class User {
+    direction LR
+
+    %% User Management App
+    class CustomUser {
+        <<App: users>>
         +int id
         +String username
         +String email
-        +String password
-    }
-
-    class UserProfile {
-        +int id
-        +String bio
-        +User user
+        +dateTime date_joined
         +__str__() String
     }
 
+    %% Biodiversity Data App
     class Species {
+        <<App: fauna>>
         +int id
-        +String name
+        +String common_name
         +String scientific_name
-        +List~Habitat~ habitats
+        +String taxon_group
+        +String conservation_status
+        +get_absolute_url() String
         +__str__() String
     }
 
-    class Habitat {
-        +int id
-        +String name
-        +__str__() String
-    }
-
+    %% Functional Activity App
     class Observation {
+        <<App: observations>>
         +int id
-        +DateTime date_spotted
-        +String notes
-        +User user
-        +Species species
+        +File audio_file
+        +Decimal latitude
+        +Decimal longitude
+        +DateTime timestamp
+        +Text notes
         +is_recent() bool
         +__str__() String
     }
 
-    %% Relationships
-    User "1" -- "1" UserProfile : OneToOne
-    User "1" -- "*" Observation : ForeignKey (OneToMany)
-    Species "1" -- "*" Observation : ForeignKey (OneToMany)
-    Species "*" -- "*" Habitat : ManyToMany
+    %% Relationships (ForeignKeys)
+    CustomUser "1" -- "*" Observation : researcher_records
+    Species "1" -- "*" Observation : identifies_fauna
+
+    %% Inheritance Note
+    class AbstractUser {
+        <<Django Core>>
+    }
+    AbstractUser <|-- CustomUser
