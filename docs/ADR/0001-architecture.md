@@ -2,7 +2,7 @@
 
 **Status:** Accepted
 **Date:** 2026-04-11
-**Lead:** Joshua (Architecture & Setup Lead)
+
 
 ## Decisions
 - **Custom User Model:** Implemented `AbstractUser` early to allow for future role-based permissions (LO1).
