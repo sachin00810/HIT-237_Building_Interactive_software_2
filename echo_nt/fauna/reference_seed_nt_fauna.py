@@ -1,6 +1,8 @@
+"""Legacy reference seeding script kept outside the migrations package."""
+
 from django.core.management.base import BaseCommand
 
-from fauna.models import ConservationStatus, Habitat, Species
+from echo_nt.fauna.models import ConservationStatus, Habitat, Species
 
 
 SPECIES_DATA = [

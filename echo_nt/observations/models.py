@@ -8,7 +8,7 @@ from django.db import models
 from django.utils import timezone
 from django.utils.text import Truncator
 
-from fauna.models import Species
+from echo_nt.fauna.models import Species
 
 
 class Observation(models.Model):

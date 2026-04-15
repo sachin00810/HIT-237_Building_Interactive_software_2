@@ -9,7 +9,7 @@ from django.urls import reverse, reverse_lazy
 from django.utils import timezone
 from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
 
-from fauna.models import Habitat
+from echo_nt.fauna.models import Habitat
 
 from .forms import ObservationForm
 from .models import Observation
