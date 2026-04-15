@@ -1,53 +1,69 @@
-# HIT-237_Building_Interactive_software_2
-Assignment 2 of HIT 237
-# Echo NT - Interactive Fauna Observation App
+# EchoNT
 
+EchoNT is a Django project for recording Northern Territory fauna observations. The repository is structured to emphasize architectural decision-making, object-oriented decomposition, custom managers, optimized QuerySets, and class-based view reuse.
 
-This repository contains a Django web application built to track and manage fauna observations. This project emphasizes architectural decision-making, object-oriented design, and the practical application of Django design philosophies.
+## Core Features
 
----
+- Northern Territory species catalogue with custom managers and queryset helpers
+- Observation tracking built on Django generic class-based views
+- Author-only update and delete flows through a reusable mixin
+- Seed command for authentic NT fauna records
+- ADR documentation for architectural decisions
 
-## 👥 Team Structure & Roles
+## Project Structure
 
-This project was developed collaboratively by a team of four, with distinct responsibilities to ensure proper separation of concerns:
+- `echo_nt/fauna/` contains catalogue models, managers, and seed command logic
+- `echo_nt/observations/` contains observation models, forms, CBVs, and authorization mixins
+- `echo_nt/users/` contains the custom user model required by settings
+- `docs/ADR/` contains architecture decision records and the ADR template
+- `supplementary_materials/` is reserved for ERDs and class diagrams
 
-* **Member 1: Project Architecture & Setup Lead** *(Joshua Jnani)* **Focus:** Foundation, Core Structure, and System Architecture.  
-    **Responsibilities:** Initialized the Django project, configured the `echo_nt` virtual environment, defined the app structure (`users`, `fauna`, `observations`), and managed base configurations.
+## Local Setup
 
-* **Member 2: Models & Database Design Lead** *(Sachin Kharel)* **Focus:** Data Modelling, Object-Oriented Principles, and Relationships.  
-    **Responsibilities:** Designed the ERD, implemented database schemas utilizing all three core relationships (`OneToOne`, `ForeignKey`, `ManyToMany`), and applied data encapsulation via the "Fat Models" philosophy.
+1. Create and activate a virtual environment.
+2. Install dependencies:
 
-* **Member 3: Views, Forms & Query Logic Lead** *(Muhammad Hassan)* **Focus:** Backend Logic, Class-Based Views (CBVs), and QuerySets.  
-    **Responsibilities:** Built forms, implemented CBVs (ListView, DetailView, CreateView), and handled business logic using optimized QuerySet APIs (`select_related`, `prefetch_related`).
-
-* **Member 4: Frontend, Integration & Documentation Lead** *(Saman Kandel)* **Focus:** User Interface, Template Integration, and Final Documentation.  
-    **Responsibilities:** Designed responsive templates utilizing `base.html` inheritance, integrated frontend UI with backend views, and managed supplementary diagrams (ERD, Class diagrams).
-
----
-
-## 🏗️ Architecture & Decision Records (ADRs)
-
-In accordance with the assessment criteria, architectural decision-making is the core focus of this repository. We have documented every significant design choice in our **Architecture Decision Records (ADR)**.
-
-You can find our living ADR document here:  
-📄 `docs/ADR/0001-architecture.md`
-
-**Key Philosophies Implemented:**
-1.  **Fat Models, Thin Views:** Business logic (e.g., date-based observation validation) is encapsulated directly within the model classes rather than scattered across views.
-2.  **Don't Repeat Yourself (DRY):** Extensive use of template inheritance (`base.html`) and Class-Based Views to eliminate redundant code.
-3.  **Loose Coupling:** The project is strictly divided into three isolated apps (`users`, `fauna`, `observations`) that manage their own concerns.
-
----
-
-## 🚀 Setup & Installation Guide
-
-To run this Django application locally, follow these steps:
-
-**1. Clone the repository**
 ```bash
-git clone <your-github-repo-url>
-cd <repository-folder>
+pip install -r requirements.txt
+```
 
-    Group Plans for future assignments:
-    submit assigment in time
-    
+3. Apply migrations:
+
+```bash
+python manage.py migrate
+```
+
+4. Seed the fauna catalogue:
+
+```bash
+python manage.py seed_nt_fauna --refresh
+```
+
+5. Start the development server:
+
+```bash
+python manage.py runserver
+```
+
+## Current Verification
+
+The current codebase has been verified with:
+
+```bash
+python manage.py check
+python manage.py migrate
+python manage.py seed_nt_fauna --refresh
+```
+
+The list page, detail page, login page, and authenticated create/update flows all render successfully.
+
+## Documentation Deliverables
+
+- Project plan: `project_plan_and_contract.md`
+- ADRs: `docs/ADR/`
+- Supplementary materials placeholder: `supplementary_materials/README.md`
+
+## Notes
+
+- The local development database is intentionally ignored by git.
+- Static placeholder files are explicitly preserved so the Django structure remains complete in GitHub.

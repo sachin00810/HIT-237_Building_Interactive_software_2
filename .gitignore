@@ -9,8 +9,11 @@ __pycache__/
 
 # Database and Media
 db.sqlite3
+echo_nt/db.sqlite3
 media/
 static/
+echo_nt/static/*
+!echo_nt/static/.gitkeep
 
 # OS specific
 .DS_Store
