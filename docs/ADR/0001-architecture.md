@@ -28,7 +28,6 @@
 
 ## Rationale
 This structure ensures that the "Bio-Validation Engine" can be developed independently of the Web UI, adhering to **Sophisticated OO Decomposition (LO3)**.
-<<<<<<< HEAD
 
 ## Frontend & UI Architecture
 **Context:** Need a scalable, maintainable, and responsive frontend interface that easily connects to backend views without code duplication.
@@ -38,5 +37,3 @@ This structure ensures that the "Bio-Validation Engine" can be developed indepen
 * **UI Structure:** Integrated Bootstrap 5 via CDN to guarantee mobile responsiveness and accessibility.
 * **Integration Decisions:** Used Django template tags (`{% extends %}` and `{% block content %}`) to inject child templates (like `home.html`) into the master layout.
 **Code Reference:** `templates/base.html` and `templates/home.html`.
-=======
->>>>>>> e37d8cd8377256d29ad006098d90c4d3a55a173c
