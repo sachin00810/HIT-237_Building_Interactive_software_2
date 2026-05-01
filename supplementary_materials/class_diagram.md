@@ -12,6 +12,7 @@ classDiagram
         +int id
         +String username
         +String email
+        +String role
         +dateTime date_joined
         +__str__() String
     }
@@ -37,6 +38,7 @@ classDiagram
         +Decimal longitude
         +DateTime timestamp
         +Text notes
+        +Boolean is_verified
         +is_recent() bool
         +__str__() String
     }
