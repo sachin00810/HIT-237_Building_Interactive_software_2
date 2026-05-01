@@ -4,7 +4,8 @@ from .views import (
     ObservationDetailView,
     ObservationCreateView,
     ObservationUpdateView,
-    ObservationDeleteView
+    ObservationDeleteView,
+    ObservationVerifyView
 )
 
 urlpatterns = [
@@ -13,4 +14,5 @@ urlpatterns = [
     path('observation/new/', ObservationCreateView.as_view(), name='observation-create'),
     path('observation/<int:pk>/update/', ObservationUpdateView.as_view(), name='observation-update'),
     path('observation/<int:pk>/delete/', ObservationDeleteView.as_view(), name='observation-delete'),
+    path('observation/<int:pk>/verify/', ObservationVerifyView.as_view(), name='observation-verify'),
 ]

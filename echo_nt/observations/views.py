@@ -3,10 +3,13 @@ from __future__ import annotations
 from datetime import timedelta
 
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib import messages
 from django.core.exceptions import PermissionDenied
 from django.db.models import Prefetch
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
 from django.utils import timezone
+from django.views import View
 from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
 
 from echo_nt.fauna.models import Habitat
@@ -33,6 +36,19 @@ class AuthorRequiredMixin(LoginRequiredMixin, UserPassesTestMixin):
 
     def test_func(self):
         return self.get_object().user_id == self.request.user.id
+
+    def handle_no_permission(self):
+        if self.request.user.is_authenticated:
+            raise PermissionDenied(self.permission_denied_message)
+        return super().handle_no_permission()
+
+
+class RangerRequiredMixin(LoginRequiredMixin, UserPassesTestMixin):
+    raise_exception = True
+    permission_denied_message = "Only rangers can perform this action."
+
+    def test_func(self):
+        return self.request.user.role == "ranger"
 
     def handle_no_permission(self):
         if self.request.user.is_authenticated:
@@ -122,3 +138,13 @@ class ObservationDeleteView(
     model = Observation
     template_name = "observations/observation_confirm_delete.html"
     success_url = reverse_lazy("observation-list")
+
+
+class ObservationVerifyView(RangerRequiredMixin, View):
+    def post(self, request, pk, *args, **kwargs):
+        observation = get_object_or_404(Observation, pk=pk)
+        observation.is_verified = not observation.is_verified
+        observation.save()
+        status = "verified" if observation.is_verified else "unverified"
+        messages.success(request, f"Observation for {observation.species.name} marked as {status}.")
+        return redirect("observation-detail", pk=pk)
