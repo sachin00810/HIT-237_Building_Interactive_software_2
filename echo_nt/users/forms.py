@@ -30,21 +30,16 @@ class EmailOrUsernameAuthenticationForm(AuthenticationForm):
     )
 
     def clean(self):
+        # The EmailOrUsernameBackend (settings.AUTHENTICATION_BACKENDS) now handles
+        # resolving email → username during authenticate(). The form simply passes
+        # the raw identifier through so the backend can process it.
         identifier = self.cleaned_data.get("username")
         password = self.cleaned_data.get("password")
 
         if identifier and password:
-            username = identifier
-            if "@" in identifier:
-                matched_user = User.objects.filter(email__iexact=identifier).only(
-                    "username"
-                ).first()
-                if matched_user:
-                    username = matched_user.get_username()
-
             self.user_cache = authenticate(
                 self.request,
-                username=username,
+                username=identifier,
                 password=password,
             )
 

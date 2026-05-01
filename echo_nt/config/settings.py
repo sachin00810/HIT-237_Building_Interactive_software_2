@@ -117,3 +117,10 @@ AUTH_USER_MODEL = 'users.CustomUser'
 LOGIN_URL = "login"
 LOGIN_REDIRECT_URL = "observation-list"
 LOGOUT_REDIRECT_URL = "observation-list"
+
+# Authentication backends — our custom backend handles email OR username login.
+# Django's ModelBackend is kept as the fallback for admin and management commands.
+AUTHENTICATION_BACKENDS = [
+    "echo_nt.users.backends.EmailOrUsernameBackend",
+    "django.contrib.auth.backends.ModelBackend",
+]
