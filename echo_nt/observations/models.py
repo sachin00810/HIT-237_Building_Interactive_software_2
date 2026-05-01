@@ -24,6 +24,7 @@ class Observation(models.Model):
     )
     notes = models.TextField(blank=True)
     date_spotted = models.DateTimeField(default=timezone.now, db_index=True)
+    is_verified = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
