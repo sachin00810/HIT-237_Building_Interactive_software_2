@@ -19,8 +19,9 @@
                 <a class="nav-link" href="{% url 'observation-list' %}">Observations</a>
                 <a class="nav-link" href="{% url 'observation-create' %}">Add Observation</a>
                 {% if user.is_authenticated %}
-                <span class="navbar-text text-white-50">Signed in as {{ user.username }}</span>
-                <form method="post" action="{% url 'logout' %}" class="d-inline">
+                <span class="navbar-text text-white-50">Signed in as {{ user.username }} ({{ user.get_role_display|default:user.role|title }})</span>
+                <a class="nav-link ms-2" href="{% url 'password_change' %}">Change Password</a>
+                <form method="post" action="{% url 'logout' %}" class="d-inline ms-2">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-sm btn-outline-light">Logout</button>
                 </form>
