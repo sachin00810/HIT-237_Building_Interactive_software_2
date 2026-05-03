@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+
+    <h2 class="mb-3">Welcome {{ user.username }} 👋</h2>
+
+    <!-- Stats Card -->
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card text-white bg-success mb-3 shadow">
+                <div class="card-body">
+                    <h5 class="card-title">Total Observations</h5>
+                    <h2>{{ total }}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Observations -->
+    <h4 class="mt-4">My Observations</h4>
+
+    {% for obs in observations %}
+        <div class="card p-3 mt-2 shadow-sm">
+    <div class="d-flex justify-content-between align-items-center">
+
+        <div>
+            <strong>{{ obs }}</strong>
+        </div>
+
+        <div class="d-flex gap-2">
+
+            {% if obs.is_verified %}
+                <span class="badge bg-success">Verified</span>
+            {% else %}
+                <span class="badge bg-warning text-dark">Pending</span>
+
+                <a href="{% url 'observation-verify' obs.pk %}" 
+                   class="btn btn-sm btn-success">
+                    Verify
+                </a>
+            {% endif %}
+
+        </div>
+
+    </div>
+</div>
+    {% empty %}
+        <div class="alert alert-info mt-3">
+            No observations yet. Start by adding one!
+        </div>
+    {% endfor %}
+
+</div>
+{% endblock %}

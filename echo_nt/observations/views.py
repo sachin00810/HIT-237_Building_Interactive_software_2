@@ -148,3 +148,18 @@ class ObservationVerifyView(RangerRequiredMixin, View):
         status = "verified" if observation.is_verified else "unverified"
         messages.success(request, f"Observation for {observation.species.name} marked as {status}.")
         return redirect("observation-detail", pk=pk)
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
+from .models import Observation
+
+@login_required
+def dashboard(request):
+    user = request.user
+    my_observations = Observation.objects.filter(user=user)
+
+    print("Dashboard loaded")  # DEBUG
+
+    return render(request, 'dashboard.html', {
+        'total': my_observations.count(),
+        'observations': my_observations
+    })

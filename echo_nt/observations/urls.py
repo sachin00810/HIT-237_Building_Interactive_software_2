@@ -1,4 +1,5 @@
 from django.urls import path
+from . import views
 from .views import (
     ObservationListView,
     ObservationDetailView,
@@ -15,4 +16,5 @@ urlpatterns = [
     path('observation/<int:pk>/update/', ObservationUpdateView.as_view(), name='observation-update'),
     path('observation/<int:pk>/delete/', ObservationDeleteView.as_view(), name='observation-delete'),
     path('observation/<int:pk>/verify/', ObservationVerifyView.as_view(), name='observation-verify'),
+    path('dashboard/', views.dashboard, name='dashboard'),
 ]
