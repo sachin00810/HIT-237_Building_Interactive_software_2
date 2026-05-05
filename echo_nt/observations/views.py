@@ -3,11 +3,12 @@ from __future__ import annotations
 from .services import create_observation
 from datetime import timedelta
 
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib import messages
 from django.core.exceptions import PermissionDenied
 from django.db.models import Prefetch
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse, reverse_lazy
 from django.utils import timezone
 from django.views import View
@@ -114,9 +115,9 @@ class ObservationCreateView(LoginRequiredMixin, CreateView):
             initial["species"] = int(species_id)
         return initial
 
-def form_valid(self, form):
-    self.object = create_observation(self.request.user, form)
-    return super().form_valid(form)
+    def form_valid(self, form):
+        self.object = create_observation(self.request.user, form)
+        return super().form_valid(form)
 
     def get_success_url(self):
         return reverse("observation-detail", kwargs={"pk": self.object.pk})
@@ -149,18 +150,12 @@ class ObservationVerifyView(RangerRequiredMixin, View):
         status = "verified" if observation.is_verified else "unverified"
         messages.success(request, f"Observation for {observation.species.name} marked as {status}.")
         return redirect("observation-detail", pk=pk)
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
-from .models import Observation
+
 
 @login_required
 def dashboard(request):
-    user = request.user
-    my_observations = Observation.objects.filter(user=user)
-
-    print("Dashboard loaded")  # DEBUG
-
-    return render(request, 'dashboard.html', {
-        'total': my_observations.count(),
-        'observations': my_observations
+    my_observations = Observation.objects.filter(user=request.user)
+    return render(request, "dashboard.html", {
+        "total": my_observations.count(),
+        "observations": my_observations,
     })
