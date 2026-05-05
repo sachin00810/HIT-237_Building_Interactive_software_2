@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from .services import create_observation
 from datetime import timedelta
 
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -113,9 +114,9 @@ class ObservationCreateView(LoginRequiredMixin, CreateView):
             initial["species"] = int(species_id)
         return initial
 
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super().form_valid(form)
+def form_valid(self, form):
+    self.object = create_observation(self.request.user, form)
+    return super().form_valid(form)
 
     def get_success_url(self):
         return reverse("observation-detail", kwargs={"pk": self.object.pk})

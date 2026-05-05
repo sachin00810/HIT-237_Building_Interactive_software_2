@@ -1,0 +1,1 @@
+User → ObservationCreateView → create_observation() → Observation Model → Database
